@@ -1,0 +1,105 @@
+[gd_scene load_steps=12 format=3 uid="uid://clgs4dj03r7ab"]
+
+[ext_resource type="PackedScene" uid="uid://c8cuoxar3jmjn" path="res://player.tscn" id="1_nnsk1"]
+[ext_resource type="PackedScene" uid="uid://dqmlks01wugu1" path="res://scenes/arena.tscn" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://srdbvaj1su0g" path="res://scenes/enemy.tscn" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://dcg6rk4t6aoar" path="res://scripts/enemy.gd" id="4_k0juu"]
+[ext_resource type="Texture2D" uid="uid://o5xfdhcnn7ai" path="res://sprites/healthbarbacunder.png" id="5_i7141"]
+[ext_resource type="Texture2D" uid="uid://dhsfa0wxuwccx" path="res://sprites/healthbarover.png" id="6_4mrxx"]
+[ext_resource type="Texture2D" uid="uid://b8mdk4s01q0mi" path="res://sprites/playeravatar.png" id="7_7r4gi"]
+[ext_resource type="PackedScene" uid="uid://cnwpngyl4meh2" path="res://scenes/scene_transition.tscn" id="8_4mrxx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwgxs"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_4wyf3"]
+sky_material = SubResource("ProceduralSkyMaterial_rwgxs")
+
+[sub_resource type="Environment" id="Environment_k0juu"]
+background_mode = 2
+sky = SubResource("Sky_4wyf3")
+tonemap_mode = 2
+
+[node name="World" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -148.76262, 86.92082, 1198.8973)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k0juu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_nnsk1")]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 63.92045, 9.020021, 491.36218)
+
+[node name="Arena" parent="." instance=ExtResource("2_rwgxs")]
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_4wyf3")]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 61.458633, 0, -14.761658)
+script = ExtResource("4_k0juu")
+player = NodePath("../Player")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="PlayerHPBar" type="TextureProgressBar" parent="HUD"]
+offset_left = 138.0
+offset_top = 84.0
+offset_right = 377.0
+offset_bottom = 99.0
+value = 75.0
+texture_under = ExtResource("5_i7141")
+texture_progress = ExtResource("6_4mrxx")
+
+[node name="PlayerLabel" type="Label" parent="HUD"]
+offset_left = 139.0
+offset_top = 53.0
+offset_right = 213.0
+offset_bottom = 76.0
+text = "0xGeorge"
+
+[node name="PlayerAvatar" type="TextureRect" parent="HUD"]
+offset_left = 33.0
+offset_top = 32.0
+offset_right = 126.0
+offset_bottom = 125.0
+texture = ExtResource("7_7r4gi")
+
+[node name="EnemyHPBar" type="TextureProgressBar" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -376.0
+offset_top = 88.0
+offset_right = -137.0
+offset_bottom = 103.0
+grow_horizontal = 0
+value = 75.0
+texture_under = ExtResource("5_i7141")
+texture_progress = ExtResource("6_4mrxx")
+
+[node name="EnemyLabel" type="Label" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -212.0
+offset_top = 56.0
+offset_right = -138.0
+offset_bottom = 79.0
+grow_horizontal = 0
+text = "BeastyBoy"
+
+[node name="EnemyAvatar" type="TextureRect" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_top = 32.0
+offset_right = -35.0
+offset_bottom = 125.0
+grow_horizontal = 0
+texture = ExtResource("7_7r4gi")
+
+[node name="SceneTransition" parent="." instance=ExtResource("8_4mrxx")]
