@@ -22,7 +22,6 @@ sky = SubResource("Sky_4wyf3")
 tonemap_mode = 2
 
 [node name="World" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -148.76262, 86.92082, 1198.8973)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k0juu")
