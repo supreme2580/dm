@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://goo37ha4jue8"]
+
+[node name="EnemyInteractionPrompt" type="Label3D"]
+transform = Transform3D(14.999999, 0, 0, 0, 14.999999, 0, 0, 0, 14.999999, 0, 0, 0)
+text = "Press E to activate"
